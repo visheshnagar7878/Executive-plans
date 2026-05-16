@@ -2,7 +2,7 @@ import { ArrowUpRight, Send } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-text text-bg pt-32 pb-12 px-6 md:px-12 rounded-t-[40px] md:rounded-t-[80px] mt-20 transition-colors">
+    <footer className="relative z-10 bg-text text-bg pt-32 pb-12 px-6 md:px-12 rounded-t-[40px] md:rounded-t-[80px] mt-20 transition-colors">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-24 md:mb-32 border-b border-bg/10 pb-20">
           <div className="w-full md:w-1/2">

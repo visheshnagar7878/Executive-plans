@@ -1,14 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const scrollToTop = (e: React.MouseEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
@@ -23,20 +34,20 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl px-6 py-4 flex justify-between items-center z-50 transition-colors bg-bg/60 backdrop-blur-xl border border-border/50 rounded-full shadow-lg shadow-black/5"
       >
-        <a 
-          href="#" 
+        <Link 
+          to="/" 
           onClick={scrollToTop}
           className="font-display text-xl md:text-2xl uppercase tracking-tighter text-text leading-none flex items-center hover:scale-105 transition-transform"
         >
           EXECUTIVE<span className="hidden md:inline ml-1 text-brand">PLANS</span>
-        </a>
+        </Link>
         
         <div className="hidden md:flex gap-8 items-center text-sm font-body font-medium uppercase tracking-widest text-text">
           {navLinks.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className="group relative py-1 hover:text-brand transition-colors">
+            <Link key={item} to={`/#${item.toLowerCase()}`} className="group relative py-1 hover:text-brand transition-colors">
               {item}
               <span className="absolute left-0 bottom-0 w-full h-[2px] bg-brand origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -68,14 +79,14 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-8 text-center">
               {navLinks.map((item) => (
-                <a 
+                <Link 
                   key={item} 
-                  href={`#${item.toLowerCase()}`} 
+                  to={`/#${item.toLowerCase()}`} 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-display text-4xl uppercase tracking-tighter text-text hover:text-brand transition-colors"
                 >
                   {item}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
