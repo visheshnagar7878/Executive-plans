@@ -8,6 +8,7 @@ import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import GhostMascot from './components/GhostMascot';
 import { ThemeProvider } from './components/ThemeProvider';
 
 import Home from './pages/Home';
@@ -26,6 +27,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <GhostMascot />
       </SmoothScroll>
     </ThemeProvider>
   );
