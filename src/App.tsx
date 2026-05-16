@@ -12,6 +12,7 @@ import Services from './components/Services';
 import Work from './components/Work';
 import About from './components/About';
 import Footer from './components/Footer';
+import GhostMascot from './components/GhostMascot';
 import { ThemeProvider } from './components/ThemeProvider';
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
           <About />
         </main>
         <Footer />
+        <GhostMascot />
       </SmoothScroll>
     </ThemeProvider>
   );
