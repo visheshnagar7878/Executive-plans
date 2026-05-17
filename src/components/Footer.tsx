@@ -58,8 +58,8 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm font-medium uppercase tracking-widest text-bg/40">
           <p>© {new Date().getFullYear()} Executive Plans</p>
-          <p>All Rights Reserved</p>
-          <p>Based in kota</p>
+          <p>Developer : Vishesh Nagar</p>
+          <p>Based in Kota</p>
         </div>
       </div>
     </footer>

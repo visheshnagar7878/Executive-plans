@@ -8,7 +8,9 @@ import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ConstructionZone from './components/ConstructionZone';
 import GhostMascot from './components/GhostMascot';
+import NoiseOverlay from './components/NoiseOverlay';
 import { ThemeProvider } from './components/ThemeProvider';
 
 import Home from './pages/Home';
@@ -27,7 +29,9 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <ConstructionZone />
         <GhostMascot />
+        <NoiseOverlay />
       </SmoothScroll>
     </ThemeProvider>
   );

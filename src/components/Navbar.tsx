@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { Link, useLocation } from 'react-router-dom';
+import Magnetic from './Magnetic';
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -44,28 +45,34 @@ export default function Navbar() {
         
         <div className="hidden md:flex gap-8 items-center text-sm font-body font-medium uppercase tracking-widest text-text">
           {navLinks.map((item) => (
-            <Link key={item} to={`/#${item.toLowerCase()}`} className="group relative py-1 hover:text-brand transition-colors">
-              {item}
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-brand origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-            </Link>
+            <Magnetic key={item}>
+              <Link to={`/#${item.toLowerCase()}`} className="group relative py-1 hover:text-brand transition-colors block">
+                {item}
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-brand origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+              </Link>
+            </Magnetic>
           ))}
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          <button 
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="w-10 h-10 rounded-full bg-text/5 flex items-center justify-center backdrop-blur-md border border-text/10 hover:bg-brand hover:text-brand-foreground hover:border-brand transition-colors text-text"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
+          <Magnetic>
+            <button 
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="w-10 h-10 rounded-full bg-text/5 flex items-center justify-center backdrop-blur-md border border-text/10 hover:bg-brand hover:text-brand-foreground hover:border-brand transition-colors text-text"
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+          </Magnetic>
           
-          <button 
-            className="md:hidden w-10 h-10 rounded-full bg-text/5 flex items-center justify-center backdrop-blur-md border border-text/10 hover:bg-brand hover:text-brand-foreground hover:border-brand transition-colors text-text"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-          </button>
+          <Magnetic>
+            <button 
+              className="md:hidden w-10 h-10 rounded-full bg-text/5 flex items-center justify-center backdrop-blur-md border border-text/10 hover:bg-brand hover:text-brand-foreground hover:border-brand transition-colors text-text"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </Magnetic>
         </div>
       </motion.nav>
 

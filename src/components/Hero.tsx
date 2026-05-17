@@ -1,11 +1,62 @@
-import { motion } from 'motion/react';
+import { useEffect } from 'react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
 
 export default function Hero() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 50, stiffness: 400, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX - innerWidth / 2) * 0.1;
+      const y = (e.clientY - innerHeight / 2) * 0.1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const sentence1 = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+    },
+  };
+
+  const sentence2 = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.6 },
+    },
+  };
+
+  const letter = {
+    hidden: { y: '100%' },
+    visible: {
+      y: 0,
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden pt-20 transition-colors">
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand/20 rounded-full blur-[100px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand/20 rounded-full blur-[100px] animate-pulse" 
+          style={{ x: smoothX, y: smoothY }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand/10 rounded-full blur-[100px] animate-pulse" 
+          style={{ x: smoothX, y: smoothY, animationDelay: '1s' }} 
+        />
       </div>
 
       <div className="z-10 text-center flex flex-col items-center">
@@ -13,7 +64,7 @@ export default function Hero() {
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-brand font-body text-sm md:text-base font-semibold tracking-[0.2em] uppercase"
           >
             Digital Agency for New Business
@@ -21,16 +72,18 @@ export default function Hero() {
         </div>
 
         <h1 className="font-display text-[15vw] md:text-[12vw] leading-[0.8] uppercase tracking-tighter text-text flex flex-col items-center">
-          <div className="overflow-hidden">
-            <motion.span
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-              className="block"
-            >
-              WE BUILD
-            </motion.span>
-          </div>
+          <motion.div 
+            className="overflow-hidden flex"
+            variants={sentence1}
+            initial="hidden"
+            animate="visible"
+          >
+            {"WE BUILD".split('').map((char, index) => (
+              <motion.span key={index} variants={letter} className="block whitespace-pre">
+                {char}
+              </motion.span>
+            ))}
+          </motion.div>
           <div className="overflow-hidden flex items-center gap-4 md:gap-8">
             <motion.div
               initial={{ width: 0 }}
@@ -38,21 +91,25 @@ export default function Hero() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
               className="h-[1vw] bg-brand hidden md:block"
             />
-            <motion.span
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-              className="block"
+            <motion.div 
+              className="overflow-hidden flex"
+              variants={sentence2}
+              initial="hidden"
+              animate="visible"
             >
-              FUTURES
-            </motion.span>
+              {"FUTURES".split('').map((char, index) => (
+                <motion.span key={index} variants={letter} className="block whitespace-pre">
+                  {char}
+                </motion.span>
+              ))}
+            </motion.div>
           </div>
         </h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
           className="mt-12 text-text-muted max-w-sm text-center font-body text-sm md:text-base leading-relaxed"
         >
           Websites, Apps, and Marketing that don't suck. We translate your chaotic vision into digital reality.
@@ -63,7 +120,7 @@ export default function Hero() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-text-muted flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
+        transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <span className="text-[10px] uppercase tracking-widest font-body">Scroll down</span>
         <div className="w-[1px] h-12 bg-border relative overflow-hidden">
