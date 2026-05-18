@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
 
 interface MagneticProps {
   children: React.ReactNode;
+  key?: string | number;
 }
 
 export default function Magnetic({ children }: MagneticProps) {
