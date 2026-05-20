@@ -145,7 +145,7 @@ export const servicesData: Record<string, Service> = {
       {
         title: "NEON DREAMS",
         category: "E-Commerce Experience",
-        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop"
       },
       {
         title: "CREATIVE FOLIO",
