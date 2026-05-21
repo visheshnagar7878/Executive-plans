@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import SmoothScroll from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
@@ -15,8 +16,16 @@ import { ThemeProvider } from './components/ThemeProvider';
 
 import Home from './pages/Home';
 import ServiceDetail from './pages/ServiceDetail';
+import AboutPage from './pages/AboutPage';
 
 export default function App() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Instantly reset scroll to top on page navigation
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <ThemeProvider defaultTheme="light">
       <SmoothScroll>
@@ -26,6 +35,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services/:serviceId" element={<ServiceDetail />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
         <Footer />

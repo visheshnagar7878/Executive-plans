@@ -46,7 +46,10 @@ export default function Navbar() {
         <div className="hidden md:flex gap-8 items-center text-sm font-body font-medium uppercase tracking-widest text-text">
           {navLinks.map((item) => (
             <Magnetic key={item}>
-              <Link to={`/#${item.toLowerCase()}`} className="group relative py-1 hover:text-brand transition-colors block">
+              <Link 
+                to={item === 'About' ? '/about' : `/#${item.toLowerCase()}`} 
+                className="group relative py-1 hover:text-brand transition-colors block"
+              >
                 {item}
                 <span className="absolute left-0 bottom-0 w-full h-[2px] bg-brand origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </Link>
@@ -88,7 +91,7 @@ export default function Navbar() {
               {navLinks.map((item) => (
                 <Link 
                   key={item} 
-                  to={`/#${item.toLowerCase()}`} 
+                  to={item === 'About' ? '/about' : `/#${item.toLowerCase()}`} 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-display text-4xl uppercase tracking-tighter text-text hover:text-brand transition-colors"
                 >
