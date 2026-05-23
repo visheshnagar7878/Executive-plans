@@ -26,7 +26,7 @@ export default function Work() {
   return (
     <section id="work" className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="flex justify-between items-end mb-20 border-b border-border pb-12">
-        <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tighter leading-[0.9] text-text">
+        <h2 className="font-display text-4xl sm:text-6xl md:text-8xl uppercase tracking-tighter leading-[1.0] sm:leading-[0.9] text-text">
           Selected<br/>Works
         </h2>
         <a href="#" className="hidden md:flex items-center gap-4 group font-body uppercase tracking-widest text-sm font-medium hover:text-brand transition-colors text-text">

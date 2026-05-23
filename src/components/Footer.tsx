@@ -1,4 +1,6 @@
 import { ArrowUpRight, Send } from 'lucide-react';
+import logoImg from '../assets/executive-logo.png';
+
 
 export default function Footer() {
   return (
@@ -57,7 +59,12 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 font-body text-xs md:text-sm font-medium uppercase tracking-widest text-bg/40">
-          <p>© {new Date().getFullYear()} Executive Plans</p>
+          <p className="flex items-center gap-2.5">
+            <span className="w-6 h-6 rounded-full bg-zinc-950 flex items-center justify-center p-0.5 border border-zinc-800 shadow-sm shrink-0">
+              <img src={logoImg} alt="Logo" className="w-full h-full object-contain" />
+            </span>
+            © {new Date().getFullYear()} Executive Plans
+          </p>
           <p>Developer : Vishesh Nagar</p>
           <p>Based in Kota</p>
         </div>

@@ -21,8 +21,8 @@ export default function GhostMascot() {
 
   useEffect(() => {
     const triggerGhost = () => {
-      // Pick random corner
-      const corners: Position[] = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+      // Pick random bottom corner to prevent overlapping with Navbar brand and links
+      const corners: Position[] = ['bottom-left', 'bottom-right'];
       setPosition(corners[Math.floor(Math.random() * corners.length)]);
       
       // Pick random message

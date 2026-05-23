@@ -4,6 +4,7 @@ import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { Link, useLocation } from 'react-router-dom';
 import Magnetic from './Magnetic';
+import logoImg from '../assets/executive-logo.png';
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -13,15 +14,29 @@ export default function Navbar() {
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      const timeoutId = setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          if ((window as any).lenis) {
+            (window as any).lenis.scrollTo(element, { 
+              duration: 1.5,
+              easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+          } else {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 100);
+      return () => clearTimeout(timeoutId);
     }
-  }, [location]);
+  }, [location.hash, location.pathname]);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(0, { duration: 1.5 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -38,9 +53,18 @@ export default function Navbar() {
         <Link 
           to="/" 
           onClick={scrollToTop}
-          className="font-display text-xl md:text-2xl uppercase tracking-tighter text-text leading-none flex items-center hover:scale-105 transition-transform"
+          className="font-display text-xl md:text-2xl uppercase tracking-tighter text-text leading-none flex items-center gap-3 hover:scale-[1.01] transition-transform"
         >
-          EXECUTIVE<span className="hidden md:inline ml-1 text-brand">PLANS</span>
+          <div className="w-10 h-10 rounded-full bg-zinc-950 flex items-center justify-center p-2 shadow-md shrink-0 border border-zinc-800">
+            <img 
+              src={logoImg} 
+              alt="Executive Plans Logo" 
+              className="w-full h-full object-contain" 
+            />
+          </div>
+          <span className="flex items-center">
+            EXECUTIVE<span className="ml-1 text-brand">PLANS</span>
+          </span>
         </Link>
         
         <div className="hidden md:flex gap-8 items-center text-sm font-body font-medium uppercase tracking-widest text-text">

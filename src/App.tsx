@@ -19,12 +19,28 @@ import ServiceDetail from './pages/ServiceDetail';
 import AboutPage from './pages/AboutPage';
 
 export default function App() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Instantly reset scroll to top on page navigation
+    // Force browser to not restore scroll position on reload, and start at the top
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(0, { immediate: true });
+    }
+  }, []);
+
+  useEffect(() => {
+    // Instantly reset scroll to top on page navigation, unless there is a hash in the URL
+    if (!hash) {
+      window.scrollTo(0, 0);
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(0, { immediate: true });
+      }
+    }
+  }, [pathname, hash]);
 
   return (
     <ThemeProvider defaultTheme="light">

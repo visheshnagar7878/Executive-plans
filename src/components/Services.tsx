@@ -26,7 +26,7 @@ export default function Services() {
   return (
     <section id="services" className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row gap-12 justify-between items-end mb-20">
-        <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tighter w-full max-w-2xl leading-[0.9] text-text">
+        <h2 className="font-display text-4xl sm:text-6xl md:text-8xl uppercase tracking-tighter w-full max-w-2xl leading-[1.0] sm:leading-[0.9] text-text">
           What we <br/> <span className="text-brand">actually</span> do
         </h2>
         <p className="text-text-muted font-body max-w-xs md:pb-4 text-sm md:text-base">

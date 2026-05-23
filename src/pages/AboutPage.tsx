@@ -14,7 +14,7 @@ import {
 
 import princeImg from '../assets/prince.png';
 import anshuImg from '../assets/anshu.png';
-import visheshImg from '../assets/vishesh.png';
+import visheshImg from '../assets/vishesh.jpeg';
 
 interface Developer {
   name: string;
@@ -157,7 +157,8 @@ function DeveloperCard({ dev }: { dev: Developer }) {
         <img 
           src={dev.img} 
           alt={dev.name} 
-          className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 scale-100 group-hover:scale-[1.02] transition-all duration-700 ease-out" 
+          className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 scale-100 group-hover:scale-[1.02] transition-all duration-700 ease-out will-change-[filter,transform]" 
+          style={{ transform: 'translate3d(0,0,0)' }}
         />
         
         {/* Glow Ring behind the image */}
@@ -326,7 +327,7 @@ export default function AboutPage() {
           OUR MANIFESTO
         </motion.div>
         
-        <h1 className="font-display text-[10vw] md:text-[6.5vw] uppercase tracking-tighter leading-[0.85] text-text flex flex-wrap gap-x-[1.5vw] gap-y-2">
+        <h1 className="font-display text-4xl sm:text-6xl md:text-[6.5vw] xl:text-[80px] uppercase tracking-tighter leading-[1.0] md:leading-[0.85] text-text flex flex-wrap gap-x-[1.5vw] gap-y-2">
           {words.map((word, i) => (
             <div key={i} className="overflow-hidden inline-block h-auto">
               <motion.span

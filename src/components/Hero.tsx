@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
+import logoImg from '../assets/executive-logo.png';
 
 export default function Hero() {
   const mouseX = useMotionValue(0);
@@ -47,7 +48,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden pt-20 transition-colors">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 md:py-32 transition-colors">
       <div className="absolute inset-0 z-0">
         <motion.div 
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand/20 rounded-full blur-[100px] animate-pulse" 
@@ -60,6 +61,22 @@ export default function Hero() {
       </div>
 
       <div className="z-10 text-center flex flex-col items-center">
+        {/* Large Prominent Logo Badge - Guaranteed Perfect Contrast and Visibility for White Logo */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 hover:scale-[1.03] transition-transform duration-300 pointer-events-auto"
+        >
+          <div className="w-16 h-16 md:w-20 h-20 rounded-full bg-zinc-950 flex items-center justify-center p-3 shadow-xl border border-zinc-800 shadow-black/10">
+            <img 
+              src={logoImg} 
+              alt="Executive Plans Logo" 
+              className="w-full h-full object-contain filter brightness-110" 
+            />
+          </div>
+        </motion.div>
+
         <div className="overflow-hidden mb-4">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -71,7 +88,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <h1 className="font-display text-[15vw] md:text-[12vw] leading-[0.8] uppercase tracking-tighter text-text flex flex-col items-center">
+        <h1 className="font-display text-5xl sm:text-7xl md:text-[11vw] xl:text-[140px] leading-[1.0] md:leading-[0.85] uppercase tracking-tighter text-text flex flex-col items-center">
           <motion.div 
             className="overflow-hidden flex"
             variants={sentence1}
@@ -117,7 +134,7 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-text-muted flex flex-col items-center gap-2"
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 text-text-muted hidden md:flex flex-col items-center gap-2 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}

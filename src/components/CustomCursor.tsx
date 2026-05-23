@@ -4,8 +4,17 @@ import { motion } from 'motion/react';
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Check if the device is touch-only or has a coarse pointer
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouch) {
+      return;
+    }
+
+    setIsVisible(true);
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -32,6 +41,8 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
+
+  if (!isVisible) return null;
 
   return (
     <>
