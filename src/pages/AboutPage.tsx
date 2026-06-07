@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'motion/react';
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence, useScroll } from 'motion/react';
 import { 
   Github, 
   Linkedin, 
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 import princeImg from '../assets/prince.png';
-import anshuImg from '../assets/anshu.png';
+import anshuImg from '../assets/ash.jpg';
 import visheshImg from '../assets/vishesh.jpeg';
 
 interface Developer {
@@ -90,6 +90,7 @@ const DEVELOPERS: Developer[] = [
 
 function DeveloperCard({ dev }: { dev: Developer }) {
   const [activeTab, setActiveTab] = useState<'stack' | 'stats'>('stack');
+  const [imageLoaded, setImageLoaded] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -154,10 +155,15 @@ function DeveloperCard({ dev }: { dev: Developer }) {
       {/* Image & Header */}
       <div className="relative aspect-[5/4] w-full overflow-hidden border-b border-border/50" style={{ transform: 'translateZ(5px)' }}>
         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10" />
+        
+        {/* Skeleton/Blur placeholder */}
+        <div className={`absolute inset-0 bg-border/20 animate-pulse transition-opacity duration-700 z-0 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`} />
+
         <img 
           src={dev.img} 
           alt={dev.name} 
-          className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 scale-100 group-hover:scale-[1.02] transition-all duration-700 ease-out will-change-[filter,transform]" 
+          onLoad={() => setImageLoaded(true)}
+          className={`w-full h-full object-cover filter transition-all duration-700 ease-out will-change-[filter,transform] scale-100 group-hover:scale-[1.02] ${imageLoaded ? 'opacity-100 grayscale group-hover:grayscale-0' : 'opacity-0 blur-md'}`} 
           style={{ transform: 'translate3d(0,0,0)' }}
         />
         
@@ -229,8 +235,8 @@ function DeveloperCard({ dev }: { dev: Developer }) {
         </div>
 
         {/* Tab Content */}
-        <div className="min-h-[76px] flex flex-col justify-center" style={{ transform: 'translateZ(8px)' }}>
-          <AnimatePresence mode="wait">
+        <div className="relative min-h-[76px] flex flex-col justify-center" style={{ transform: 'translateZ(8px)' }}>
+          <AnimatePresence>
             {activeTab === 'stack' ? (
               <motion.div
                 key="stack"
@@ -238,7 +244,7 @@ function DeveloperCard({ dev }: { dev: Developer }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -3 }}
                 transition={{ duration: 0.15 }}
-                className="flex flex-wrap gap-2"
+                className="absolute w-full flex flex-wrap gap-2"
               >
                 {dev.tech.map((tech) => (
                   <span 
@@ -256,7 +262,7 @@ function DeveloperCard({ dev }: { dev: Developer }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -3 }}
                 transition={{ duration: 0.15 }}
-                className="grid grid-cols-3 gap-2"
+                className="absolute w-full grid grid-cols-3 gap-2"
               >
                 {dev.stats.map((stat) => (
                   <div key={stat.label} className="flex flex-col">
@@ -277,6 +283,9 @@ export default function AboutPage() {
   const sentence = "RAW EXECUTION. STRATEGIC BRILLIANCE.";
   
   const words = sentence.split(" ");
+  const { scrollYProgress } = useScroll();
+  const backgroundY1 = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const backgroundY2 = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
 
   const revealVariants = {
     hidden: { y: '100%' },
@@ -311,10 +320,16 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col">
+    <div className="min-h-screen pt-24 md:pt-32 lg:pt-40 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col">
       {/* Mesh gradients for modern background glow */}
-      <div className="absolute top-0 right-0 w-full md:w-[700px] h-[500px] bg-gradient-to-b from-brand/10 to-transparent rounded-full blur-[120px] pointer-events-none z-0" />
-      <div className="absolute top-[800px] left-0 w-full md:w-[600px] h-[400px] bg-gradient-to-b from-brand/5 to-transparent rounded-full blur-[100px] pointer-events-none z-0" />
+      <motion.div 
+        style={{ y: backgroundY1 }}
+        className="absolute top-0 right-0 w-full md:w-[700px] h-[500px] bg-gradient-to-b from-brand/10 to-transparent rounded-full blur-[120px] pointer-events-none z-0" 
+      />
+      <motion.div 
+        style={{ y: backgroundY2 }}
+        className="absolute top-[800px] left-0 w-full md:w-[600px] h-[400px] bg-gradient-to-b from-brand/5 to-transparent rounded-full blur-[100px] pointer-events-none z-0" 
+      />
 
       {/* Cinematic Hero */}
       <header className="relative z-10 max-w-5xl mb-24 md:mb-32 mt-8">
