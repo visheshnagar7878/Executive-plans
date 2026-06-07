@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence, useScroll } from 'motion/react';
-import { 
-  Github, 
-  Linkedin, 
-  Cpu, 
-  Layers, 
-  Activity, 
-  Zap, 
-  Terminal, 
-  Sparkles, 
-  ArrowUpRight 
+import {
+  Github,
+  Linkedin,
+  Cpu,
+  Layers,
+  Activity,
+  Zap,
+  Terminal,
+  Sparkles,
+  ArrowUpRight
 } from 'lucide-react';
 
 import princeImg from '../assets/prince.png';
@@ -97,7 +97,7 @@ function DeveloperCard({ dev }: { dev: Developer }) {
   // Smooth springs for 3D rotate - made highly damped & subtle (max 5 degrees)
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [5, -5]), { damping: 45, stiffness: 80 });
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-5, 5]), { damping: 45, stiffness: 80 });
-  
+
   // Gloss glare highlight effect - toned down for formal styling
   const glareX = useSpring(useTransform(x, [-0.5, 0.5], ['10%', '90%']), { damping: 45, stiffness: 80 });
   const glareY = useSpring(useTransform(y, [-0.5, 0.5], ['10%', '90%']), { damping: 45, stiffness: 80 });
@@ -142,7 +142,7 @@ function DeveloperCard({ dev }: { dev: Developer }) {
       />
 
       {/* Moving Accent Glow Spotlight behind card - extremely soft formal glow */}
-      <motion.div 
+      <motion.div
         className="absolute w-[280px] h-[280px] rounded-full blur-[90px] pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-500 z-0"
         style={{
           left: useTransform(x, [-0.5, 0.5], ['0%', '80%']),
@@ -155,20 +155,20 @@ function DeveloperCard({ dev }: { dev: Developer }) {
       {/* Image & Header */}
       <div className="relative aspect-[5/4] w-full overflow-hidden border-b border-border/50" style={{ transform: 'translateZ(5px)' }}>
         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10" />
-        
+
         {/* Skeleton/Blur placeholder */}
         <div className={`absolute inset-0 bg-border/20 animate-pulse transition-opacity duration-700 z-0 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`} />
 
-        <img 
-          src={dev.img} 
-          alt={dev.name} 
+        <img
+          src={dev.img}
+          alt={dev.name}
           onLoad={() => setImageLoaded(true)}
-          className={`w-full h-full object-cover filter transition-all duration-700 ease-out will-change-[filter,transform] scale-100 group-hover:scale-[1.02] ${imageLoaded ? 'opacity-100 grayscale group-hover:grayscale-0' : 'opacity-0 blur-md'}`} 
+          className={`w-full h-full object-cover filter transition-all duration-700 ease-out will-change-[filter,transform] scale-100 group-hover:scale-[1.02] ${imageLoaded ? 'opacity-100 grayscale group-hover:grayscale-0' : 'opacity-0 blur-md'}`}
           style={{ transform: 'translate3d(0,0,0)' }}
         />
-        
+
         {/* Glow Ring behind the image */}
-        <div 
+        <div
           className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 h-12 rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
           style={{ backgroundColor: dev.accent }}
         />
@@ -187,10 +187,10 @@ function DeveloperCard({ dev }: { dev: Developer }) {
           {dev.name}
           <div className="flex gap-2" style={{ transform: 'translateZ(15px)' }}>
             {dev.socials.github && (
-              <a 
-                href={dev.socials.github} 
-                target="_blank" 
-                rel="noreferrer" 
+              <a
+                href={dev.socials.github}
+                target="_blank"
+                rel="noreferrer"
                 className="w-8 h-8 rounded-full border border-border/60 hover:border-brand hover:text-brand flex items-center justify-center transition-colors text-text-muted"
                 aria-label="GitHub Profile"
               >
@@ -198,10 +198,10 @@ function DeveloperCard({ dev }: { dev: Developer }) {
               </a>
             )}
             {dev.socials.linkedin && (
-              <a 
-                href={dev.socials.linkedin} 
-                target="_blank" 
-                rel="noreferrer" 
+              <a
+                href={dev.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
                 className="w-8 h-8 rounded-full border border-border/60 hover:border-brand hover:text-brand flex items-center justify-center transition-colors text-text-muted"
                 aria-label="LinkedIn Profile"
               >
@@ -220,13 +220,13 @@ function DeveloperCard({ dev }: { dev: Developer }) {
 
         {/* Tab Controls */}
         <div className="flex border-b border-border/50 mb-6 font-body text-xs font-semibold uppercase tracking-wider" style={{ transform: 'translateZ(8px)' }}>
-          <button 
+          <button
             onClick={() => setActiveTab('stack')}
             className={`pb-3 pr-4 flex items-center gap-1.5 transition-all border-b-2 ${activeTab === 'stack' ? 'border-brand text-brand' : 'border-transparent text-text-muted'}`}
           >
             <Cpu className="w-3.5 h-3.5" /> Stack
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('stats')}
             className={`pb-3 px-4 flex items-center gap-1.5 transition-all border-b-2 ${activeTab === 'stats' ? 'border-brand text-brand' : 'border-transparent text-text-muted'}`}
           >
@@ -247,8 +247,8 @@ function DeveloperCard({ dev }: { dev: Developer }) {
                 className="absolute w-full flex flex-wrap gap-2"
               >
                 {dev.tech.map((tech) => (
-                  <span 
-                    key={tech} 
+                  <span
+                    key={tech}
                     className="font-body text-xs text-text border border-border/50 px-3 py-1.5 rounded-xl bg-text/5 hover:bg-brand/10 hover:border-brand/40 transition-colors"
                   >
                     {tech}
@@ -281,7 +281,7 @@ function DeveloperCard({ dev }: { dev: Developer }) {
 
 export default function AboutPage() {
   const sentence = "RAW EXECUTION. STRATEGIC BRILLIANCE.";
-  
+
   const words = sentence.split(" ");
   const { scrollYProgress } = useScroll();
   const backgroundY1 = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
@@ -322,13 +322,13 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pt-24 md:pt-32 lg:pt-40 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col">
       {/* Mesh gradients for modern background glow */}
-      <motion.div 
+      <motion.div
         style={{ y: backgroundY1 }}
-        className="absolute top-0 right-0 w-full md:w-[700px] h-[500px] bg-gradient-to-b from-brand/10 to-transparent rounded-full blur-[120px] pointer-events-none z-0" 
+        className="absolute top-0 right-0 w-full md:w-[700px] h-[500px] bg-gradient-to-b from-brand/10 to-transparent rounded-full blur-[120px] pointer-events-none z-0"
       />
-      <motion.div 
+      <motion.div
         style={{ y: backgroundY2 }}
-        className="absolute top-[800px] left-0 w-full md:w-[600px] h-[400px] bg-gradient-to-b from-brand/5 to-transparent rounded-full blur-[100px] pointer-events-none z-0" 
+        className="absolute top-[800px] left-0 w-full md:w-[600px] h-[400px] bg-gradient-to-b from-brand/5 to-transparent rounded-full blur-[100px] pointer-events-none z-0"
       />
 
       {/* Cinematic Hero */}
@@ -341,7 +341,7 @@ export default function AboutPage() {
         >
           OUR MANIFESTO
         </motion.div>
-        
+
         <h1 className="font-display text-4xl sm:text-6xl md:text-[6.5vw] xl:text-[80px] uppercase tracking-tighter leading-[1.0] md:leading-[0.85] text-text flex flex-wrap gap-x-[1.5vw] gap-y-2">
           {words.map((word, i) => (
             <div key={i} className="overflow-hidden inline-block h-auto">
@@ -369,15 +369,15 @@ export default function AboutPage() {
       </header>
 
       {/* Strategic Pillars Grid */}
-      <motion.section 
+      <motion.section
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 mb-32"
       >
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="bg-bg/40 border border-border/60 p-8 md:p-10 rounded-[32px] hover:border-brand/40 transition-all duration-300"
         >
           <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8">
@@ -389,8 +389,8 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="bg-bg/40 border border-border/60 p-8 md:p-10 rounded-[32px] hover:border-brand/40 transition-all duration-300"
         >
           <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8">
@@ -402,8 +402,8 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        <motion.div 
-          variants={itemVariants} 
+        <motion.div
+          variants={itemVariants}
           className="bg-bg/40 border border-border/60 p-8 md:p-10 rounded-[32px] hover:border-brand/40 transition-all duration-300"
         >
           <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8">
@@ -420,7 +420,7 @@ export default function AboutPage() {
       <section className="relative z-10 mb-16">
         <div className="flex justify-between items-end mb-16 border-b border-border/60 pb-8">
           <div>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, x: -15 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -429,12 +429,12 @@ export default function AboutPage() {
               THE ARCHITECTS
             </motion.p>
             <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter leading-none text-text">
-              Meet The<br/>Engineers
+              Meet The<br />Engineers
             </h2>
           </div>
         </div>
 
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
