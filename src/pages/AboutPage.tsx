@@ -19,6 +19,8 @@ import visheshImg from '../assets/vishesh.jpeg';
 interface Developer {
   name: string;
   role: string;
+
+
   badge: string;
   img: string;
   bio: string;
